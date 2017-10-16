@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/pautas/**").hasAnyAuthority("ADMINISTRADOR")
+                .antMatchers("/pautas/", "pautas/**").hasAnyAuthority("ADMINISTRADOR")
+                .antMatchers("/pautas/", "pautas/detail").hasAnyAuthority("USUARIO")
 
                 .and()
                 .formLogin()

@@ -1,1 +1,3 @@
-INSERT INTO usuario (id, email, nome, nivel, senha) VALUES (1, 'admin@admin.com', 'Administrador', 0, '$2a$10$5CkxYUFVb9xySAzIgfRJouvD2KRdArbxbzhV5VLFrddkpkiJRiBu6');
+INSERT INTO usuario (id, email, nome, nivel, senha) VALUES (1, 'admin', 'Administrador', 0, '$2a$10$5CkxYUFVb9xySAzIgfRJouvD2KRdArbxbzhV5VLFrddkpkiJRiBu6');
+INSERT INTO usuario (id, email, nome, nivel, senha) VALUES (2, 'user', 'Usuário', 1, '$2a$10$DUJ8VTfoiVMaIim1e7K9VuqrEFJmR7qw0hXPpK4DcKIm5dFBFSwgm');
+INSERT INTO usuario (id, email, nome, nivel, senha) VALUES (3, 'teste', 'Teste', 1, '$2a$10$QN7E0a9UVSpRRUV8QjaY8O87byQS6EF3QhRqw82TGN48qLFNSgZbO');

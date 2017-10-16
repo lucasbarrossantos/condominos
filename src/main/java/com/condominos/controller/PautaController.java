@@ -3,9 +3,11 @@ package com.condominos.controller;
 import com.condominos.controller.page.PageWrapper;
 import com.condominos.model.Categoria;
 import com.condominos.model.Pauta;
+import com.condominos.model.vo.VotacaoDTO;
 import com.condominos.repository.Categorias;
 import com.condominos.repository.Pautas;
 import com.condominos.repository.Usuarios;
+import com.condominos.repository.Votos;
 import com.condominos.security.UsuarioSistema;
 import com.condominos.service.PautasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/pautas")
@@ -42,6 +45,9 @@ public class PautaController {
 
     @Autowired
     private Usuarios usuarios;
+
+    @Autowired
+    private Votos votos;
 
     @GetMapping("/nova")
     public ModelAndView nova(Pauta pauta) {
@@ -84,9 +90,9 @@ public class PautaController {
     @GetMapping("/detail/{id}")
     public ModelAndView detalheDaPauta(@PathVariable("id") Pauta pauta, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
         ModelAndView view = new ModelAndView(DETAIL);
-
-        view.addObject("votou", isVotadoPor(usuarioSistema, pauta.getId()));
         view.addObject(pauta);
+        view.addObject("votou", isVotadoPor(usuarioSistema, pauta.getId()));
+        view.addObject("votos", votos.resumoDeVotos(pauta.getId()));
         view.addObject(new Categoria());
         view.addObject("categorias", categorias.findAllByPautaId(pauta.getId()));
         view.addObject("usuarioSistema", usuarioSistema.getUsuario().getId());
