@@ -10,7 +10,7 @@ import java.util.List;
 public interface Votos extends JpaRepository<Votacao, Long> {
 
     @Query("select new com.condominos.model.vo.VotacaoDTO(count (v.id), c.descricao) from Votacao as v, Categoria as c " +
-            "where v.categoria.id = c.id and c.pauta.id = ?1 group by v.categoria.id")
+            "where v.categoria.id = c.id and c.pauta.id = ?1 group by v.categoria.id, c.descricao")
     List<VotacaoDTO> resumoDeVotos(Long pauta_id);
 
 }
