@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+
+    <title>Condominos</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/algaworks.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/application.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/bootstrap-datetimepicker.css}"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="aw-layout-page">
+
+    <header th:replace="/fragments/Header :: header"></header>
+
+    <div th:replace="/fragments/MenuLateral :: menu-lateral"></div>
+
+    <div layout:fragment="conteudo"></div>
+
+    <th:block th:replace="/fragments/Footer :: footer"></th:block>
+
+</div>
+
+<script th:src="@{/javascripts/vendors.min.js}"></script>
+<script th:src="@{/javascripts/algaworks.min.js}"></script>
+
+<script th:src="@{/vendors/date-picker/bootstrap-datetimepicker.js}"></script>
+<script th:src="@{/vendors/date-picker/bootstrap-datetimepicker.pt-BR.js}"></script>
+<script th:src="@{/vendors/jquery.mask.min.js}"></script>
+
+<script th:src="@{/javascripts/condominos.js}"></script>
+
+<th:block layout:fragment="javascript-extra"></th:block>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Cadastro de pauta</title>
+</head>
+
+<section class="aw-layout-content  js-content" layout:fragment="conteudo">
+
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h1>
+                        Pesquisa de pautas
+                    </h1>
+                </div>
+
+                <div class="col-xs-2">
+                    <div class="aw-page-header-controls">
+                        <a class="btn btn-primary" th:href="@{/pautas/nova}">
+                            <i class="fa  fa-plus-circle"></i> <span
+                                class="hidden-xs  hidden-sm">Nova pauta</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <form method="get" class="form-vertical  js-form-loading" th:object="${pauta}" th:action="@{/pautas}">
+
+            <div class="form-group">
+                <label for="input-produto-nome">Descrição</label>
+                <textarea id="input-produto-nome" autofocus=""
+                          rows="5"
+                          type="text" class="form-control" th:field="*{descricao}">
+                </textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="input-pauta-datas">Horários</label>
+
+                        <div class="form-inline">
+                            <input type="text" class="form-control  aw-form-control-inline-sm">
+                            <label class="aw-form-label-between">até</label>
+                            <input type="text" class="form-control  aw-form-control-inline-sm">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <button class="btn  btn-primary" type="submit">
+                    Pesquisar
+                </button>
+            </div>
+
+        </form>
+
+        <div class="row  aw-datatable-toolbar">
+            <div class="col-xs-8">
+
+                <div class="btn-group">
+                    <button type="button" class="btn  btn-default  btn-sm  dropdown-toggle" data-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fa  fa-arrow-circle-down  visible-md-inline  visible-lg-inline"></i>
+                        <span>Exportar</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Para arquivo Excel</a></li>
+                        <li><a href="#">Para arquivo CSV</a></li>
+                        <li><a href="#">Para arquivo XML</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="tabela-produtos"
+                   class="table  table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+                <thead class="aw-table-header-solid">
+                <tr>
+                    <th>#</th>
+                    <th>Descrição</th>
+                    <th class="table-pesq-produto-col-preco">Horário de início</th>
+                    <th class="table-pesq-produto-col-estoque">Horário de encerramento</th>
+                    <th class="table-pesq-produto-col-acoes">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pauta : ${pagina.conteudo}">
+                    <td th:text="${pauta.id}"></td>
+                    <td>
+                        <a th:href="@{/pautas/detail/{id}(id=${pauta.id})}" th:text="${pauta.descricao}">Pauta descrição</a>
+                    </td>
+                    <td th:text="${{pauta.horarioDeInicio}}" class="table-pesq-produto-col-preco">01/01/2017 00:00</td>
+                    <td th:text="${{pauta.horarioDeEncerramento}}" class="table-pesq-produto-col-estoque">01/01/2017 00:00</td>
+                    <td class="table-pesq-produto-col-acoes">
+
+                        <div class="btn-group">
+                            <a class="btn  btn-default btn-xs" th:href="@{/pautas/{codigo}(codigo=${pauta.id})}">
+                                <i class="fa  fa-pencil"></i>
+                            </a>
+
+                            <a class="btn  btn-default btn-xs js-exclusao-btn js-tooltip"
+                                    th:attr="data-codigo=${pauta.id}
+                                               , data-objeto='Pauta ' + ${pauta.descricao}
+                                               , data-url=@{/pautas/{codigo}(codigo=${pauta.id})}"
+                                    data-original-title="Excluir"
+                                    data-placement="top" title="Excluir">
+
+                                <i class="fa  fa-trash"></i>
+                            </a>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12  col-md-8  aw-text-xs-center  aw-text-md-left">
+                <nav>
+                    <ul class="pagination  pagination-sm">
+                        <li><a href="#"><i class="fa  fa-angle-double-left"></i></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><i class="fa  fa-angle-double-right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-xs-12  col-md-4  aw-text-xs-center  aw-text-md-right">
+			<span class="aw-pagination-info" th:text="${pagina.conteudo.size() + ' produto(s) encontrado(s)'}">
+				102 produtos encontrados
+			</span>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/condominos.dialogo-exclusao.js}"></script>
+</th:block>
+</html>

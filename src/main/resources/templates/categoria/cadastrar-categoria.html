@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Cadastro de categoria</title>
+</head>
+
+<section class="aw-layout-content  js-content" layout:fragment="conteudo">
+
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h1>
+                        Cadastro de categoria
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <form method="post" class="form-vertical" th:object="${categoria}"
+              th:action="@{/categorias/nova}">
+
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{pauta.id}"/>
+
+            <div th:replace="fragments/MensagensErroValidacao :: error"></div>
+            <div th:replace="fragments/MensagemSucesso :: alert"></div>
+            <div th:replace="fragments/MensagemErro :: danger"></div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+                <label for="descricao" class="control-label">Descrição</label>
+                <textarea id="descricao" autofocus="" rows="3" th:field="*{descricao}" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button class="btn  btn-primary" type="submit">Salvar</button>
+                <a th:href="@{/pautas/detail/{codigo}(codigo=${categoria.pauta.id})}" class="btn  btn-default">Voltar</a>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+
+</html>
